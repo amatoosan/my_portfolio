@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Homes", type: :request do
-  it "get top" do
-    get '/homes/top'
+
+  it "get root" do
+    get '/'
     expect(response.status).to eq(200)
+    expect(response.body).to include "Topページです"
   end
+
 end
