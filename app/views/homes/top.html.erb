@@ -4,10 +4,24 @@
     <title>Home</title>
   </head>
   <body>
+    <header>
+      <%= link_to image_tag("ぱぱらちあ.jpg", class:"logo"), "/" %>
+      <p class="site-introduction">サイト紹介的な文章</p>
+
+      <div class="search">
+        <form action="#" method="get">
+          <input type="text" name="name" >
+        </form>
+          <%= link_to "高度な検索", '#'%>
+      </div>
+
+      <%= link_to "サインイン", signup_path, class:"nav-link btn", data: {"turbolinks" => false} %>
+
+    </header>
+
     <h1>Topページです</h1>
     <p>
       topです
-      <%= link_to "サインイン", signup_path, class: "btn btn-lg btn-primary" %>
     </p>
   </body>
 </html>
