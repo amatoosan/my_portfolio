@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    import 'react-tabs/style/react-tabs.css';
     <title>Home</title>
   </head>
   <body>
@@ -18,10 +19,9 @@
       <%= link_to "サインイン", signup_path, class:"nav-link btn", data: {"turbolinks" => false} %>
 
     </header>
-
+    <%= react_component('App') %>
     <h1>Topページです</h1>
-    <p>
-      topです
-    </p>
+    <p>topです</p>
+
   </body>
 </html>
