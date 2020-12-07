@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec-rails', '4.0.1'
   gem 'diff-lcs', '1.4.4'
   gem 'capybara', '3.34'
+  gem 'factory_bot_rails', '~> 6.1'
 end
 
 group :development do
