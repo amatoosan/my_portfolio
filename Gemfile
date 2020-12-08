@@ -12,6 +12,7 @@ gem 'puma', '~> 4.1'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 gem 'react-rails', '~> 2.6', '>= 2.6.1'
+gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 
 # 必要かよくわからないgem郡
 # Use SCSS for stylesheets
