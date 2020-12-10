@@ -38,6 +38,7 @@ group :development, :test do
   gem 'diff-lcs', '1.4.4'
   gem 'capybara', '3.34'
   gem 'factory_bot_rails', '~> 6.1'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
 end
 
 group :development do
