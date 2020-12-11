@@ -16,6 +16,9 @@ RSpec.describe "UsersSignups", type: :request do
         subject { response }
         it { is_expected.to redirect_to user_path(User.last) } #showページにリダイレクトされる
         it { is_expected.to have_http_status 302 } #リダイレクト成功
+        it 'log in' do
+          expect(is_logged_in?).to be_truthy
+        end
       end
     end
     
@@ -28,14 +31,12 @@ RSpec.describe "UsersSignups", type: :request do
                               password: '',
                               password_confirmation: '')
       end
-
       #無効なユーザーが追加されないことを確認
       it 'does not add a user' do
         expect do
           post signup_path, params: { user: user_params }
         end.to change(User, :count).by(0)
       end
-
     end
 
   end

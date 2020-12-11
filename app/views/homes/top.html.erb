@@ -15,7 +15,14 @@
           <%= link_to "高度な検索", '#'%>
       </div>
 
-      <%= link_to "サインイン", signup_path, class:"nav-link btn", data: {"turbolinks" => false} %>
+      <% if logged_in? %>
+        <%= link_to "プロフィール", current_user %>
+        <%= link_to "ログアウト", logout_path, method: :delete %>
+      <% else %>
+        <%= link_to "ログイン", login_path, class:"nav-link btn" %>
+        <%= link_to "サインイン", signup_path, class:"nav-link btn", 
+            data: {"turbolinks" => false} %>
+      <% end %>
 
     </header>
     <%= react_component('App') %>
