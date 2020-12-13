@@ -13,7 +13,7 @@ RSpec.describe SessionsHelper, type: :helper do
         expect(is_logged_in?).to be_truthy
       end
     end
-    context 'update Remember Digest with new tokens' do
+    context 'update remember Digest with new tokens' do
       it 'current user becomes nil' do
         @user.update_attribute(:remember_digest, User.digest(User.new_token))
         expect(current_user).to eq nil
