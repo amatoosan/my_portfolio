@@ -10,9 +10,12 @@ class User < ApplicationRecord
              format: { with: VALID_EMAIL_REGEX },
              uniqueness: { case_sensitive: false }
 
-  has_secure_password
+  validates :profile, length: { maximum: 255 }
 
+  has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+
+  mount_uploader :picture, PictureUploader
 
   class << self
     # 渡された文字列のハッシュ値を返す

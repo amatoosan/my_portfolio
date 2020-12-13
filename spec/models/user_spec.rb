@@ -78,4 +78,14 @@ RSpec.describe User, type: :model do
     expect(@user.authenticated?('')).to be_falsey
   end
 
+  it "自己紹介文が256文字以上の時" do
+    @user.profile = "a" * 256
+    expect(@user).to be_invalid
+  end
+
+  it "自己紹介文が空白の時" do
+    @user.profile = ""
+    expect(@user).to be_valid
+  end
+
 end

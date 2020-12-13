@@ -21,7 +21,7 @@ RSpec.describe "UsersSignups", type: :request do
         end
       end
     end
-    
+
     #無効なリクエスト
     context 'invalid request' do
       #無効なユーザーを作成
@@ -39,5 +39,19 @@ RSpec.describe "UsersSignups", type: :request do
       end
     end
 
+    context 'images' do
+      let(:user_params) do
+        attributes_for(:user, name: 'test',
+                              email: 'test@example.com',
+                              password: 'password',
+                              password_confirmation: 'password',
+                              image: Rack::Test::UploadedFile.new(File.join(Rails.root, 'app/assets/images/images.png')))
+      end
+      it 'user images' do
+        expect do
+          post signup_path, params: { user: attributes_for(:user) }
+        end.to change(User, :count).by(1)
+      end
+    end
   end
 end

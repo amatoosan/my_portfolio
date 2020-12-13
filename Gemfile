@@ -13,6 +13,8 @@ gem 'puma', '~> 4.1'
 gem 'webpacker', '~> 4.0'
 gem 'react-rails', '~> 2.6', '>= 2.6.1'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
+gem 'carrierwave', '~> 2.1'
+gem 'mini_magick', '~> 4.11'
 
 # 必要かよくわからないgem郡
 # Use SCSS for stylesheets
