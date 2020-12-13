@@ -1,3 +1,4 @@
+<%= render 'layouts/header' %>
 <h1>Log in</h1>
 
 <div class="row">
@@ -11,6 +12,12 @@
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.submit "ログイン", class: "btn btn-primary" %>
+
+      <%= f.label :remember_me, class: "checkbox" do %>
+        <%= f.check_box :remember_me %>
+        <span>ログイン状態を保持</span>
+      <% end %>
+
     <% end %>
 
     <p>ユーザー登録がお済みでない方は<%= link_to "こちら", signup_path %>へ</p>

@@ -40,6 +40,5 @@ RSpec.describe "Users", type: :system do
         is_expected.to have_current_path '/signup'
       end
     end
-
   end
 end

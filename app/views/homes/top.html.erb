@@ -4,27 +4,8 @@
     <title>Home</title>
   </head>
   <body>
-    <header>
-      <%= link_to image_tag("ぱぱらちあ.jpg", class:"logo"), "/" %>
-      <p class="site-introduction">サイト紹介的な文章</p>
-
-      <div class="search">
-        <form action="#" method="get">
-          <input type="text" name="name" >
-        </form>
-          <%= link_to "高度な検索", '#'%>
-      </div>
-
-      <% if logged_in? %>
-        <%= link_to "プロフィール", current_user %>
-        <%= link_to "ログアウト", logout_path, method: :delete %>
-      <% else %>
-        <%= link_to "ログイン", login_path, class:"nav-link btn" %>
-        <%= link_to "サインイン", signup_path, class:"nav-link btn", 
-            data: {"turbolinks" => false} %>
-      <% end %>
-
-    </header>
+    <%= render 'layouts/header' %>
+    
     <%= react_component('App') %>
     <h1>Topページです</h1>
     <p>topです</p>
