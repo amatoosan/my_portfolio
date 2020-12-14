@@ -4,28 +4,27 @@ class PictureUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
+  # 下記はデフォルトの画像保存先(保存先ディレクトリは上書き可能)
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   #リサイズ、画像形式を変更に必要
   include CarrierWave::MiniMagick
-
+ 
   #上限変更
-    process :resize_to_limit => [700, 700]
+  process :resize_to_limit => [100, 100]
 
   #JPGで保存
-    process :convert => 'jpg'
+  process :convert => 'jpg'
 
   #サムネイルを生成
-    version :thumb do
-      process :resize_to_limit => [300, 300]
-    end
+  version :thumb do
+    process :resize_to_limit => [300, 300]
+  end
 
-  # jpg,jpeg,gif,pngのみ
-    def extension_white_list
+  # アップロードできる拡張子を限定(jpg,jpeg,gif,pngのみ)
+  def extension_white_list
       %w(jpg jpeg gif png)
     end
 

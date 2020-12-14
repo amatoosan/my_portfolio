@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
 
   mount_uploader :picture, PictureUploader
+  validate  :picture_size
 
   class << self
     # 渡された文字列のハッシュ値を返す
@@ -47,5 +48,14 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  private
+
+    # アップロードできる画像のサイズを制限
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "アップロードできる画像サイズは5MBまでです")
+      end
+    end
 
 end

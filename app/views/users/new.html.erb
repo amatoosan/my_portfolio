@@ -29,11 +29,11 @@
           <%= f.text_field :profile %>
           
           <%= f.file_field :picture %>
-            <% if @user.picture? %>
-              <%= image_tag @user.picture.thumb.url %>
-            <% else %>
-              <%= image_tag "images.png" %>
-            <% end %>
+          <% if @user.picture? %>
+            <%= image_tag @user.picture.thumb.url %>
+          <% else %>
+            <%= image_tag "images.png" %>
+          <% end %>
 
           <%= f.submit "新規登録", class: "btn" %>
         <% end %>
