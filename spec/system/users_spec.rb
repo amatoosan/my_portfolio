@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :system do
       end
       #今いるページのURLの検証
       it 'render to /signup url' do
-        is_expected.to have_current_path '/signup'
+        is_expected.to have_current_path '/users'
       end
     end
   end

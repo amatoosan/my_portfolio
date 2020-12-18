@@ -2,10 +2,10 @@
 <html>
 <%= render 'layouts/header' %>
   <head>
-    <title>サインイン</title>
+    <title>ユーザー編集</title>
   </head>
   <body>
-    <h1>サインインです</h1>
+    <h1>編集ページです</h1>
     <%= link_to "Topへ", root_path, class: "btn btn-lg btn-primary" %>
 
     <div class="row">
@@ -30,7 +30,7 @@
           
           <%= react_component('Preview') %>
 
-          <%= f.submit "新規登録", class: "btn" %>
+          <%= f.submit "更新", class: "btn" %>
         <% end %>
       </div>
   </div>

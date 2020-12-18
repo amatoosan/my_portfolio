@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 255 }
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   mount_uploader :picture, PictureUploader
   validate  :picture_size

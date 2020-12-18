@@ -9,7 +9,7 @@ class Preview extends React.Component {
     super(props);
     this.state = {
       //default_image: '../assets/images/images.png'
-      image_src: '',
+      picture: '',
     };
   }
 
@@ -19,14 +19,14 @@ class Preview extends React.Component {
     // ②createObjectURLで、files[0]を読み込む
     const image_url = createObjectURL(files[0]);
     // ③setStateする！
-    this.setState({image_src: image_url});
+    this.setState({picture: image_url});
   }
 
 
   render(){
     let preview;
 
-    if (this.state.image_src === '') {
+    if (this.state.picture === '') {
     preview = (
       <div>
         <input type="file" ref="file" onChange={(event) => {this.handleChangeFile(event)}} />
@@ -37,7 +37,7 @@ class Preview extends React.Component {
     preview = (
       <div>
         <input type="file" ref="file" onChange={(event) => {this.handleChangeFile(event)}} />
-        <img src={this.state.image_src} />
+        <img src={this.state.picture} />
       </div>
     );
     }

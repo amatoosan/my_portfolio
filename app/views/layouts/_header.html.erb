@@ -11,6 +11,7 @@
 
       <% if logged_in? %>
         <%= link_to "プロフィール", current_user, class:"nav-link btn" %>
+        <%= link_to "編集", edit_user_path(current_user), class:"nav-link btn" %>
         <%= link_to "ログアウト", logout_path, method: :delete, class:"nav-link btn" %>
       <% else %>
         <%= link_to "ログイン", login_path, class:"nav-link btn" %>

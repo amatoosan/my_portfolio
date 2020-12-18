@@ -5,15 +5,18 @@ module TestHelper
   end
 
   # テストユーザーとしてログインする
-  def log_in_as(user)
-    session[:user_id] = user.id
-  end
-
-  # テストユーザーとしてログインする
   def log_in_as(user, password: 'password', remember_me: '1')
     post login_path, params: { session: { email: user.email,
                                           password: password,
                                           remember_me: remember_me } }
+  end
+
+  def valid_login(user)
+    visit root_path
+    click_link "ログイン"
+    fill_in "メールアドレス", with: user.email
+    fill_in "パスワード", with: user.password
+    click_button "ログイン"
   end
 
 end
