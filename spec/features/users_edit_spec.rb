@@ -9,14 +9,13 @@ RSpec.feature "Edit", type: :feature do
     visit user_path(user)
     click_link "編集"
 
-    fill_in "ユーザーID", with: user.name
-    fill_in "メールアドレス", with: user.email
-    #fill_in "パスワード", with: user.password, match: :first
-    #fill_in "パスワード確認", with: "testjobs"
+    fill_in "ユーザーID", with: "update"
+    fill_in "メールアドレス", with:  "update@example.com"
     click_button "更新"
 
     expect(current_path).to eq user_path(user)
-    expect(user.reload.email).to eq "test@example.com"
+    expect(user.reload.name).to eq "update"
+    expect(user.reload.email).to eq "update@example.com"
   end
 
   # ユーザー編集失敗
@@ -25,12 +24,11 @@ RSpec.feature "Edit", type: :feature do
     visit user_path(user)
     click_link "編集"
 
-    fill_in "ユーザーID", with: "foo@invalid"
+    fill_in "ユーザーID", with: ""
     fill_in "メールアドレス", with: "foo@invalid"
-    fill_in "パスワード", with: "foo", match: :first
-    fill_in "パスワード確認", with: "bar"
     click_button "更新"
 
+    expect(user.reload.name).to_not eq ""
     expect(user.reload.email).to_not eq "foo@invalid"
   end
 
