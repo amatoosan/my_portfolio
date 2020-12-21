@@ -6,86 +6,129 @@ RSpec.describe User, type: :model do
     @user = build(:user)
   end
 
-  context "user test" do
-    it "値が入っている場合" do
-      expect(@user).to be_valid
-    end
-
-    it "emailが空白の場合" do
-      #FactoryBotに登録したユーザー情報のemailを空白に変更
-      @user.email = " "
-      expect(@user).to be_invalid
-    end
-  
-    it "nameの文字数" do
-      @user.name = "a" * 51
-     expect(@user).to be_invalid
-    end
-  end
-
-  context "email test" do
-    it "emailの文字数" do
-      @user.email = "a" * 244 + "@example.com"
-      expect(@user).to be_invalid
-    end
-
-    it "emailのvalidateが正しく機能しているか" do
-      addresses = %w[user@example,com user_at_foo.org user.name@example.foo@bar_baz.com foo@bar+baz.com]
-      addresses.each do |invalid_address|
-        expect(build(:user, email: invalid_address)).to be_invalid
+  describe "name" do
+    context "when the number of characters is 50 or less" do
+      it "pass validation" do
+        expect(@user.name).to eq "tester"
+        expect(@user).to be_valid
+        @user.name = "a" * 50
+        expect(@user).to be_valid
       end
     end
 
-    it "一意性が正しく機能しているか" do
-      #@userを複製してduplicate_userに格納
-      duplicate_user = @user.dup
-      #@userのemailを大文字でduplicate_userのemailに格納
-      duplicate_user.email = @user.email.upcase
-      @user.save!
-      expect(duplicate_user).to be_invalid
-    end
-
-    it "emailを小文字に変換後の値と大文字を混ぜて登録されたアドレスが同じか" do
-      @user.email = "Foo@ExAMPle.CoM"
-      @user.save!
-      expect(@user.reload.email).to eq "foo@example.com"
+    context "when the number of characters is 51 or more" do
+      it "not passing validation" do
+        @user.name = "a" * 51
+        expect(@user).to be_invalid
+      end
     end
   end
 
-  context "password test" do
-    it "passwordが空白になっていないか" do
-      #"a"が6文字のパスワードのテスト
-      @user.password = @user.password_confirmation = "a" * 6
+  describe "email" do
+    context "when the number of characters is 255 or less" do
+      it "pass validation" do
+        expect(@user.email).to eq "test@example.com"
+        expect(@user).to be_valid
+        @user.email = "a" * 243 + "@example.com"
+        expect(@user).to be_valid
+      end
+    end
+
+    context "when the number of characters is 256 or more" do
+      it "not passing validation" do
+        @user.email = "a" * 244 + "@example.com"
+        expect(@user).to be_invalid
+      end
+    end
+
+    context "when it was blank" do
+      it "not passing validation" do
+        @user.email = " "
+        expect(@user).to be_invalid
+      end
+    end
+
+    context "when not a regular expression" do
+      it "not passing validation" do
+        addresses = %w[user@example,com user_at_foo.org user.name@example.foo@bar_baz.com foo@bar+baz.com]
+        addresses.each do |invalid_address|
+          expect(build(:user, email: invalid_address)).to be_invalid
+        end
+      end
+    end
+
+    context "when you try to register an existing email address" do
+      it "not passing validation" do
+        #@userを複製してduplicate_userに格納
+        duplicate_user = @user.dup
+        #@userのemailを大文字でduplicate_userのemailに格納
+        duplicate_user.email = @user.email.upcase
+        @user.save!
+        expect(duplicate_user).to be_invalid
+      end
+    end
+
+    context "when you register an email address that contains capital letters" do
+      it "must be converted to lower case" do
+        @user.email = "Foo@ExAMPle.CoM"
+        @user.save!
+        expect(@user.reload.email).to eq "foo@example.com"
+      end
+    end
+  end
+
+  describe "password" do
+    context "when the number of characters is 6 or more" do
+      it "pass validation" do
+        @user.password = @user.password_confirmation = "a" * 6
+        expect(@user).to be_valid
+      end
+    end
+
+    context "when the number of characters is less than 5" do
+      it "not passing validation" do
+        @user.password = @user.password_confirmation = "a" * 5
+        expect(@user).to be_invalid
+      end
+    end
+
+    context "when the number of characters is 6 or more, but they are all blank" do
+      it "not passing validation" do
+        @user.password = @user.password_confirmation = " " * 6
+        expect(@user).to be_invalid
+      end
+    end
+  end
+
+  describe "profile" do
+    context "when the number of characters is 255 or less" do
+      it "pass validation" do
+        @user.profile = "a" * 255
+        expect(@user).to be_valid
+      end
+    end
+
+    context "when the number of characters is 256 or more" do
+      it "not passing validation" do
+        @user.profile = "a" * 256
+        expect(@user).to be_invalid
+      end
+    end
+  end
+
+  context "when no entry is made" do
+    it "pass validation" do
+      @user.profile = ""
       expect(@user).to be_valid
-
-      #" "が６文字のパスワードのテスト
-      @user.password = @user.password_confirmation = " " * 6
-      expect(@user).to_not be_valid
-    end
-
-    it "パスワードが６桁の時" do
-      @user = build(:user, password: "a" * 6, password_confirmation: "a" * 6)
-      expect(@user).to be_valid
-    end
-
-    it "パスワードが５桁の時" do
-      @user = build(:user, password: "a" * 5, password_confirmation: "a" * 5)
-      expect(@user).to be_invalid
     end
   end
 
-  it "authenticated?がremember_digestがnilのユーザにはfalseを返す" do
-    expect(@user.authenticated?('')).to be_falsey
-  end
-
-  it "自己紹介文が256文字以上の時" do
-    @user.profile = "a" * 256
-    expect(@user).to be_invalid
-  end
-
-  it "自己紹介文が空白の時" do
-    @user.profile = ""
-    expect(@user).to be_valid
+  describe "authenticated?" do
+    context "when remember_token is blank" do
+      it "return false" do
+        expect(@user.authenticated?('')).to be_falsey
+      end
+    end
   end
 
 end

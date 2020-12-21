@@ -1,53 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe 'Sessions', type: :system do
-  before do
-    visit login_path
-  end
 
-  #有効な値を入力する
-  describe 'enter an valid values' do
+  describe "login with a valid value" do
     let!(:user) { create(:user) }
+
     before do
-      fill_in 'メールアドレス', with: 'test@example.com'
-      fill_in 'パスワード', with: 'password'
-      click_button 'ログイン'
+      valid_login(user)
     end
     subject { page }
-    it 'log in' do
-      is_expected.to have_current_path user_path(user)
-      is_expected.to_not have_link nil, href: login_path
-      is_expected.to have_link 'プロフィール', href: user_path(user)
-      is_expected.to have_link 'ログアウト', href: logout_path
+
+    context "when you log in" do
+      it "go to the user page, logout, and only the profile link should be visible" do
+        is_expected.to have_current_path user_path(user)
+        is_expected.to have_link href: user_path(user)
+        is_expected.to have_link href: logout_path
+        is_expected.to_not have_link nil, href: login_path
+        is_expected.to_not have_link nil, href: signup_path
+      end
     end
-    it 'log out after log in' do
-      click_link 'ログアウト'
-      is_expected.to have_current_path root_path
-      is_expected.to have_link 'ログイン', href: login_path
-      is_expected.to_not have_link 'プロフィール'
-      is_expected.to_not have_link nil, href: logout_path
-      is_expected.to_not have_link nil, href: user_path(user)
+
+    context "when you log out" do
+      it "go to the top page and only the login and sign-up links should be visible" do
+        click_link 'ログアウト'
+        is_expected.to have_current_path root_path
+        is_expected.to have_link href: login_path
+        is_expected.to have_link href: signup_path
+        is_expected.to_not have_link nil, href: logout_path
+        is_expected.to_not have_link nil, href: user_path(user)
+      end
     end
   end
 
-  describe 'enter an invalid values' do
+  describe "logging in with an invalid value" do
     before do
+      visit login_path
       fill_in 'メールアドレス', with: ''
       fill_in 'パスワード', with: ''
       click_button 'ログイン'
     end
     subject { page }
-    #フラッシュメッセージが出る
-    it 'gets an flash messages' do
-      is_expected.to have_selector('.alert-danger', 
-                                    text: 'Invalid email/password combination')
-      is_expected.to have_current_path login_path
+
+    context "when user information is not correct" do
+      it "alert messages should be displayed" do
+        is_expected.to have_selector('.alert-danger', 
+                                      text: 'Invalid email/password combination')
+        is_expected.to have_current_path login_path
+      end
     end
-    #違うページにアクセスしたとき
-    context 'access to other page' do
-      before { visit root_path }
-      #フラッシュメッセージが消える
-      it 'is flash disappear' do
+
+    context "when you move to another page" do
+      it "alert messages should disappear" do
+        visit root_path
         is_expected.to_not have_selector('.alert-danger', 
                                           text: 'Invalid email/password combination')
       end

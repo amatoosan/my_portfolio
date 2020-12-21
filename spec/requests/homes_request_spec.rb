@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Homes", type: :request do
 
-  it "get root" do
-    get '/'
-    expect(response.status).to eq(200)
-    expect(response.body).to include "Topページです"
-    get "/signup"
-    expect(response).to have_http_status(:success)
+  context "GET root_path" do
+    it "to access the top page" do
+      get '/'
+      expect(response.status).to eq(200)
+      expect(response.body).to include "Topページです"
+    end
   end
 
 

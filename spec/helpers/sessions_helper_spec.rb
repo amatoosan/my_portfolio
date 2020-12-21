@@ -6,15 +6,16 @@ RSpec.describe SessionsHelper, type: :helper do
     remember(@user)
   end
 
-  describe 'current_user' do
-    context 'logging in' do
-      it 'current user and logged in user are equal' do
+  describe "current_user" do
+    context "current user and logged in user are equal" do
+      it "must be logged in" do
         expect(@user).to eq current_user
         expect(is_logged_in?).to be_truthy
       end
     end
-    context 'update remember Digest with new tokens' do
-      it 'current user becomes nil' do
+
+    context "when the Remember token is updated" do
+      it "current user must be nil" do
         @user.update_attribute(:remember_digest, User.digest(User.new_token))
         expect(current_user).to eq nil
       end

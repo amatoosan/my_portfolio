@@ -4,17 +4,18 @@ RSpec.describe "Users", type: :request do
   let(:user) { create(:user) }
   let(:testuser) { create(:testuser) }
 
-  describe "GET /new" do
-    it "returns http success" do
-      get "/signup"
-      expect(response).to have_http_status(:success)
+  describe "signup" do
+    context "when you access the sign-up page" do
+      it "successful access" do
+        get "/signup"
+        expect(response).to have_http_status(:success)
+      end
     end
   end
 
-  describe "#edit" do
-    # 認可されたユーザーとして
-    context "as an authorized user" do
-      it "responds successfully" do
+  describe "edit" do
+    context "when accessed by the correct user" do
+      it "the HTTP response should return 200" do
         log_in_as(user)
         get edit_user_path(user)
         expect(response.body).to include "編集ページです"
@@ -22,32 +23,27 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    # ログインしていないユーザーの場合
-    context "as a guest" do 
-      # ログイン画面にリダイレクトすること
-      it "redirects to the login page" do
+    context "when accessed by an unlogged user" do 
+      it "being redirected to the login page" do
         get edit_user_path(user)
         expect(response).to have_http_status "302"
         expect(response).to redirect_to login_path
       end
     end
 
-    # 異なるアカウントの編集ページへのアクセスが失敗すること
-    context "as other user" do 
-      it "redirects to the login page" do
+    context "when you access a different user's page" do 
+      it "being redirected to the login page" do
         log_in_as(testuser)
         get edit_user_path(user)
         expect(response).to have_http_status "302"
+        expect(response).to redirect_to login_path
       end
     end
-
   end
 
-  describe "#update" do
-    # 認可されたユーザーとして
-    context "as an authorized user" do
-      # ユーザーを更新できること
-      it "updates a user" do
+  describe "update" do
+    context "when the logged-in user's information is updated" do
+      it "ability to update user information" do
         user_params = attributes_for(:user, name: "NewName")
         log_in_as(user)
         patch user_path(user), params: { id: user.id, user: user_params }
@@ -55,10 +51,8 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    # ログインしていないユーザーの場合
-    context "as a guest" do 
-      # ログイン画面にリダイレクトすること
-      it "redirects to the login page" do
+    context "when you try to update your user information without logging in" do 
+      it "being redirected to the login page" do
         user_params = attributes_for(:user, name: "NewName")
         patch user_path(user), params: { id: user.id, user: user_params }
         expect(response).to have_http_status "302"
@@ -66,10 +60,8 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    # アカウントが違うユーザーの場合
-    context "as other user" do 
-      # ユーザーを更新できないこと
-      it "does not update the user" do
+    context "when you try to update the information of a different user" do 
+      it "inability to update user information" do
         user_params = attributes_for(:user, name: "NewName")
         log_in_as(testuser)
         patch user_path(user), params: { user: user_params }
