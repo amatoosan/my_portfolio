@@ -6,14 +6,14 @@ export const TABs = () => {
     return (
         <Tabs>
             <TabList>
-                <Tab>Tab1</Tab>
-                <Tab>Tab2</Tab>
+                <Tab>最近の投稿</Tab>
+                <Tab>人気の問題</Tab>
             </TabList>
             <TabPanel>
-                <h2>タブ1</h2>
+                <h2>最近の投稿です</h2>
             </TabPanel>
             <TabPanel>
-                <h2>タブ2</h2>
+                <h2>人気の問題です</h2>
             </TabPanel>
         </Tabs>
     )
