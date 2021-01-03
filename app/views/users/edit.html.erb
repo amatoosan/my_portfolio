@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
 <%= render 'layouts/header' %>
-  <head>
-    <title>ユーザー編集</title>
-  </head>
-  <body>
-    <h1>編集ページです</h1>
-    <%= link_to "Topへ", root_path, class: "btn btn-lg btn-primary" %>
 
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-       <%= form_with model: @user, local: true do |f| %>
-          <%= render 'shared/error_messages' %>
+<head>
+  <title>ユーザー編集</title>
+</head>
 
-          <%= f.label :name, "ユーザーID" %>
-          <%= f.text_field :name %>
+<body>
+  <h1>編集ページです</h1>
+  <%= link_to "Topへ", root_path, class: "btn btn-lg btn-primary" %>
 
-          <%= f.label :email, "メールアドレス" %>
-          <%= f.email_field :email %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_with model: @user, local: true do |f| %>
+      <%= render 'shared/error_messages' %>
 
-          <%= f.label :profile, "自己紹介文" %>
-          <%= f.text_field :profile %>
+      <%= f.label :name, "ユーザーID" %>
+      <%= f.text_field :name %>
 
-          <img src="<%= "#{@user.picture}" %>">
-          <%= react_component('Preview') %>
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email %>
 
-          <%= f.submit "更新", class: "btn" %>
-        <% end %>
-      </div>
+      <%= f.label :profile, "自己紹介文" %>
+      <%= f.text_field :profile %>
+
+      <%= image_tag @user.picture.url if @user.picture? %>
+      <%= f.file_field :picture %>
+      <%= react_component('Preview') %>
+
+      <%= f.submit "更新", class: "btn" %> <% end %> </div>
   </div>
 
-  </body>
+</body>
+
 </html>

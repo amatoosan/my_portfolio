@@ -8,7 +8,6 @@ class Preview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //default_image: '../assets/images/images.png'
       picture: '',
     };
   }
@@ -41,7 +40,6 @@ class Preview extends React.Component {
       </div>
     );
     }
-
 
     return(
       <div>

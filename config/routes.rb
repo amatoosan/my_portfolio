@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'homes#top'
- 
+
+  get '/test',  to: 'homes#test'
+  get '/test.json',  to: 'homes#test'
+
   get  '/signup',  to: 'users#new'
   post '/signup',  to: 'users#create'
   resources :users
