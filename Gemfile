@@ -12,6 +12,8 @@ gem 'puma', '~> 4.1'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 gem 'react-rails', '~> 2.6', '>= 2.6.1'
+gem 'axios_rails', '~> 0.14.0'
+gem 'qs', '~> 0.8.1'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'carrierwave', '~> 2.1'
 gem 'mini_magick', '~> 4.11'

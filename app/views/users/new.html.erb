@@ -9,6 +9,7 @@
 <body>
   <h1>サインインです</h1>
   <%= link_to "Topへ", root_path, class: "btn btn-lg btn-primary" %>
+  <%= react_component('UserCreatForm', pollInterval: 2000) %>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
