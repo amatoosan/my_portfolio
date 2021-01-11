@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'homes#top'
 
+  #react練習用
   get '/test',  to: 'homes#test'
   get '/test.json',  to: 'homes#test'
 

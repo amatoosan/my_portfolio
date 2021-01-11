@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
   before_action :correct_user,   only: [:edit, :update]
+  #サインアップ時の「Can't verify CSRF token authenticity.」解決用
+  skip_before_action :verify_authenticity_token
 
   def show
     @user = User.find(params[:id])
@@ -14,11 +16,17 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:success] = "登録成功しました！QNSへようこそ！"
-      redirect_to @user
+      render json: { status: :created, user: @user }
     else
-      render 'new'
+      render json: { status: 500 }
     end
+    #if @user.save
+    #  log_in @user
+    #  flash[:success] = "登録成功しました！QNSへようこそ！"
+    #  redirect_to @user
+    #else
+    #  render 'new'
+    #end
   end
 
   def edit

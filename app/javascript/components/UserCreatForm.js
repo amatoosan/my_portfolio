@@ -1,10 +1,11 @@
 import React from 'react'
-import DefaultPicture from '../../assets/images/images.png';
-
+import DefaultPicture from '../../assets/images/images.png'
+import axios from 'axios'
 class UserCreatForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
       name: '',
       email: '',
       password: '',
@@ -12,7 +13,6 @@ class UserCreatForm extends React.Component {
       profile: '',
       picture: ''
     };
-
     this.handleInputValue = this.handleInputValue.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -35,6 +35,24 @@ class UserCreatForm extends React.Component {
       'パスワード確認は『' + this.state.password_confirmation + "』です\n",
       '自己紹介は『' + this.state.profile + "』です\n"
     );
+    //post処理
+    axios.post("http://localhost:3000/signup",
+      {
+        user: {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password,
+          password_confirmation: this.state.password_confirmation,
+          profile: this.state.profile,
+          picture: this.state.picture
+        }
+      },
+      { withCredentials: true }
+    ).then(response => {
+      console.log("registration res", response)
+    }).catch(error => {
+      console.log("registration error", error)
+    });
     {/*alert('A name was submitted: ' + this.state.name);*/}
     event.preventDefault();
   }
