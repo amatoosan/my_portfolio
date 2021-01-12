@@ -16,17 +16,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      render json: { status: :created, user: @user }
+      flash[:success] = "登録成功しました！QNSへようこそ！"
+      redirect_to @user
     else
-      render json: { status: 500 }
+      render 'new'
     end
-    #if @user.save
-    #  log_in @user
-    #  flash[:success] = "登録成功しました！QNSへようこそ！"
-    #  redirect_to @user
-    #else
-    #  render 'new'
-    #end
   end
 
   def edit

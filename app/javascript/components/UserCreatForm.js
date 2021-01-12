@@ -5,7 +5,7 @@ class UserCreatForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+
       name: '',
       email: '',
       password: '',
@@ -27,14 +27,7 @@ class UserCreatForm extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    console.log(
-      'ユーザーIDは『' + this.state.name + "』です\n",
-      'メールアドレスは『' + this.state.email + "』です\n",
-      'パスワードは『' + this.state.password + "』です\n",
-      'パスワード確認は『' + this.state.password_confirmation + "』です\n",
-      '自己紹介は『' + this.state.profile + "』です\n"
-    );
+  handleSubmit = (event) => {
     //post処理
     axios.post("http://localhost:3000/signup",
       {
@@ -48,13 +41,24 @@ class UserCreatForm extends React.Component {
         }
       },
       { withCredentials: true }
-    ).then(response => {
-      console.log("registration res", response)
-    }).catch(error => {
+    )
+    .then(response => {
+      if (response.data.status === 'created') {
+        console.log("registration res", response)
+      }
+    })
+    .catch(error => {
       console.log("registration error", error)
-    });
-    {/*alert('A name was submitted: ' + this.state.name);*/}
-    event.preventDefault();
+    })
+    /*alert('A name was submitted: ' + this.state.name);*/
+    console.log(
+      'ユーザーIDは『' + this.state.name + "』です\n",
+      'メールアドレスは『' + this.state.email + "』です\n",
+      'パスワードは『' + this.state.password + "』です\n",
+      'パスワード確認は『' + this.state.password_confirmation + "』です\n",
+      '自己紹介は『' + this.state.profile + "』です\n"
+    );
+    event.preventDefault()
   }
 
   handleChangeFile(event) {
