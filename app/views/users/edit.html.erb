@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+<%= javascript_pack_tag 'preview.js' %>
 <%= render 'layouts/header' %>
+
 
 <head>
   <title>ユーザー編集</title>
@@ -24,11 +26,18 @@
       <%= f.label :profile, "自己紹介文" %>
       <%= f.text_field :profile %>
 
+      <%= f.label :picture, "画像" %>
+      <!--
       <%= image_tag @user.picture.url if @user.picture? %>
       <%= f.file_field :picture %>
-      <%= react_component('Preview') %>
+      -->
+      <%= f.file_field :picture, id: "picture-select-btn"%>
+      <div id="post-image-prev">
+        <%= image_tag @user.picture.url if @user.picture? %>
+      </div>
 
-      <%= f.submit "更新", class: "btn" %> <% end %> </div>
+      <%= f.submit "更新", class: "btn" %> <% end %>
+    </div>
   </div>
 
 </body>
