@@ -6,22 +6,22 @@
 
   <div class="navi-links">
     <% if logged_in? %>
-      <ul>
-        <li><%= link_to "プロフィール", current_user, class:"navi-btn" %></li>
-        <li><%= link_to "編集", edit_user_path(current_user), class:"navi-btn" %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete, class:"navi-btn" %></li>
-        <li><%= link_to "検索", '#', class:"navi-btn" %></li>
-        <li><%= link_to "ホーム", root_path, class:"navi-btn" %></li>
-      </ul>
+    <ul>
+      <li><%= link_to "プロフィール", current_user, class:"navi-btn" %></li>
+      <li><%= link_to "編集", edit_user_path(current_user), class:"navi-btn" %></li>
+      <li><%= link_to "ログアウト", logout_path, method: :delete, class:"navi-btn" %></li>
+      <li><%= link_to "検索", '#', class:"navi-btn" %></li>
+      <li><%= link_to "ホーム", root_path, class:"navi-btn" %></li>
+    </ul>
     <% else %>
-      <ul>
-        <li><%= link_to "ゲストログイン", '#', class:"navi-btn" %></li>
-        <li><%= link_to "ログイン", login_path, class:"navi-btn" %></li>
-        <li><%= link_to "サインイン", signup_path, class:"navi-btn", 
+    <ul>
+      <li><%= link_to "ゲストログイン", '#', class:"navi-btn" %></li>
+      <li><%= link_to "ログイン", login_path, class:"navi-btn" %></li>
+      <li><%= link_to "サインイン", signup_path, class:"navi-btn",
                                     data: {"turbolinks" => false} %></li>
-        <li><%= link_to "検索", '#', class:"navi-btn" %></li>
-        <li><%= link_to "ホーム", root_path, class:"navi-btn" %></li>
-      </ul>
+      <li><%= link_to "検索", '#', class:"navi-btn" %></li>
+      <li><%= link_to "ホーム", root_path, class:"navi-btn" %></li>
+    </ul>
     <% end %>
   </div>
 </header>

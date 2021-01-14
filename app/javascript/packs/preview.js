@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function(){
   const ImageList = document.getElementById('post-image-prev');
 
   document.getElementById('picture-select-btn').addEventListener('change', function(e){
+		const imageHidden = document.getElementById('user-picture');
+		imageHidden.style.display ="none";
 		// 画像が表示されている場合のみ、すでに存在している画像を削除する
 		const imageContent = document.querySelector('img');
 		if (imageContent){
