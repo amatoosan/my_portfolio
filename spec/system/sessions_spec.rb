@@ -14,7 +14,7 @@ RSpec.describe 'Sessions', type: :system do
       it "go to the user page, logout, and only the profile link should be visible" do
         is_expected.to have_current_path user_path(user)
         is_expected.to have_link href: user_path(user)
-        is_expected.to have_link href: logout_path
+        is_expected.to have_button text: "ログアウト"
         is_expected.to_not have_link nil, href: login_path
         is_expected.to_not have_link nil, href: signup_path
       end
@@ -22,7 +22,7 @@ RSpec.describe 'Sessions', type: :system do
 
     context "when you log out" do
       it "go to the top page and only the login and sign-up links should be visible" do
-        click_link 'ログアウト'
+        click_button 'ログアウト'
         is_expected.to have_current_path root_path
         is_expected.to have_link href: login_path
         is_expected.to have_link href: signup_path
@@ -43,7 +43,7 @@ RSpec.describe 'Sessions', type: :system do
 
     context "when user information is not correct" do
       it "alert messages should be displayed" do
-        is_expected.to have_selector('.alert-danger', 
+        is_expected.to have_selector('.alert-danger',
                                       text: 'Invalid email/password combination')
         is_expected.to have_current_path login_path
       end
@@ -52,7 +52,7 @@ RSpec.describe 'Sessions', type: :system do
     context "when you move to another page" do
       it "alert messages should disappear" do
         visit root_path
-        is_expected.to_not have_selector('.alert-danger', 
+        is_expected.to_not have_selector('.alert-danger',
                                           text: 'Invalid email/password combination')
       end
     end

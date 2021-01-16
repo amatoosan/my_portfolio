@@ -38,11 +38,11 @@ RSpec.feature "Homes", type: :feature do
 
       it "logout" do
         visit root_path
-        click_link "ログアウト"
+        click_button "ログアウト"
         expect(current_path).to eq root_path
       end
     end
-    
+
   end
 
 end
