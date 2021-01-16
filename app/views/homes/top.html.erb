@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Home</title>
-  </head>
-  <body>
-    <%= render 'layouts/header' %>
-    
-    <%= react_component('App') %>
-    <h1>Topページです</h1>
-    <p>topです</p>
 
-  </body>
+<head>
+  <%= javascript_pack_tag 'server_rendering.js' %>
+  <title>Home</title>
+</head>
+
+<body>
+  <%= render 'layouts/header' %>
+
+  <%= react_component('App') %>
+  <h1>Topページです</h1>
+  <p>topです</p>
+
+</body>
+
 </html>

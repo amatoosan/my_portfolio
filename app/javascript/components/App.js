@@ -3,7 +3,7 @@ import TABs from './TAB';
 {/*
 import './App.css';
 */}
- 
+
 function App() {
   const style = {
     width: "100%",
@@ -17,5 +17,5 @@ function App() {
     </div>
   );
 }
- 
-export default App
+
+export default App;

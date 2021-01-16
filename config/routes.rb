@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   #application.html.erbのJS読み込み部分を消すとなぜか/logoutにgetしちゃうので仮置き
-  get '/logout',  to: 'sessions#destroy'
+  #get '/logout',  to: 'sessions#destroy'
   delete '/logout',  to: 'sessions#destroy'
 
 end

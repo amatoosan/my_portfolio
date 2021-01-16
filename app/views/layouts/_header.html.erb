@@ -1,4 +1,5 @@
 <header>
+  <%= javascript_pack_tag 'delete_message.js' %>
   <div>
     <%= link_to image_tag("ぱぱらちあ.jpg", class:"site-logo"), "/" %>
     <p class="site-introduction">QNSへようこそ！</p>
@@ -9,7 +10,10 @@
     <ul>
       <li><%= link_to "プロフィール", current_user, class:"navi-btn" %></li>
       <li><%= link_to "編集", edit_user_path(current_user), class:"navi-btn" %></li>
-      <li><%= link_to "ログアウト", logout_path, method: :delete, class:"navi-btn" %></li>
+      <li><%= button_to logout_path, method: :delete, class:"navi-btn", data: { confirm: 'ログアウトしてもよろしいですか？' } do %>
+        <i></i>ログアウト
+        <% end %>
+      </li>
       <li><%= link_to "検索", '#', class:"navi-btn" %></li>
       <li><%= link_to "ホーム", root_path, class:"navi-btn" %></li>
     </ul>
