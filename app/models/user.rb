@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   attr_accessor :remember_token
 

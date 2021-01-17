@@ -18,6 +18,7 @@ gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 gem 'carrierwave', '~> 2.1'
 gem 'mini_magick', '~> 4.11'
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
 
 # 必要かよくわからないgem郡
 # Use SCSS for stylesheets
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'capybara', '3.34'
   gem 'factory_bot_rails', '~> 6.1'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
+  gem 'faker', '~> 2.15', '>= 2.15.1'
 end
 
 group :development do
