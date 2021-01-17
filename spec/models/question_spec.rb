@@ -29,6 +29,14 @@ RSpec.describe Question, type: :model do
         expect(question).to be_invalid
       end
     end
+
+    context "when the title is empty" do
+      it "not passing validation" do
+        question.title = ""
+        expect(question).to be_invalid
+      end
+    end
+
   end
 
   describe "content" do
@@ -46,5 +54,23 @@ RSpec.describe Question, type: :model do
       end
     end
   end
+
+  context "when the content is empty" do
+    it "not passing validation" do
+      question.content = ""
+      expect(question).to be_invalid
+    end
+  end
+
+  describe "when there are multiple posts" do
+    #user_idはemailの一意性制限パスのため
+    let!(:day_before_yesterday) { create(:question, :day_before_yesterday, user_id: question.user.id) }
+    let!(:now) { create(:question, :now, user_id: question.user.id) }
+    let!(:yesterday) { create(:question, :yesterday, user_id: question.user.id) }
+
+    it "the most recent post should be the first" do
+      expect(Question.first).to eq now
+    end
+end
 
 end

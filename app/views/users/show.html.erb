@@ -1,3 +1,20 @@
 <%= render 'layouts/header' %>
-<h1>プロフィール</h1>
-<%= @user.name %>, <%= @user.email %>
+<div>
+  <aside>
+    <section>
+      <h1>プロフィール</h1>
+      <%= @user.name %>, <%= @user.email %>
+    </section>
+  </aside>
+
+  <div>
+    <% if @user.questions.any? %>
+    <h3>Questions (<%= @user.questions.count %>)</h3>
+    <ol class="questions">
+      <%= render @questions %>
+    </ol>
+    <%= paginate @questions %>
+    <% end %>
+  </div>
+
+</div>

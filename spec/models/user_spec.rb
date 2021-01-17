@@ -131,4 +131,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "dependent: :destroy" do
+    context "when a user is deleted" do
+      before do
+        @user.save
+        @user.questions.create!(title: "Test", content: "destroy!")
+      end
+
+      it "that user's posts will also be deleted" do
+        expect do
+          @user.destroy
+        end.to change(Question, :count).by(-1)
+      end
+    end
+  end
+
 end
