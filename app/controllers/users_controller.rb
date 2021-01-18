@@ -47,13 +47,7 @@ class UsersController < ApplicationController
       end
 
       # beforeアクション
-      # ログイン済みユーザーかどうか確認
-      def logged_in_user
-        unless logged_in?
-          flash[:danger] = "ログインしてください。"
-          redirect_to login_url
-        end
-      end
+      #logged_in_userはapplication_controller.rbへ移動
 
       # 正しいユーザーかどうか確認
       def correct_user
